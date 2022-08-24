@@ -20,7 +20,6 @@ function SponserCard({sponser, ind}) {
     const handletoggleChange = (event) => {
         setEnabled(event.target.checked)
         let editedSponser = {...sponser, enabled: event.target.checked}
-        console.log(editSponser);
         dispatch(editSponser(editedSponser));
         if(editedSponser.url !=='' || editedSponser.title !=='' ||editedSponser.ImageUrl !==''){
             dispatch(updateSponser(editedSponser));

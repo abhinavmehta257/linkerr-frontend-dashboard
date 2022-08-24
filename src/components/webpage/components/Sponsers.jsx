@@ -4,22 +4,24 @@ import SponcerCard from './SponserCard';
 
 function Sponcers() {
     const sponsers = useSelector(state => state.sponsers.data)
-    const [isSponsers , setIsSponsers] = useState(false);
+    const [isSponsers , setIsSponsers] = useState(null);
     function checkForSponsers(sponsers){
       if(sponsers.length == 0) return false;
 
+      let isEnabled = false;
       sponsers.forEach(sponser => {
         if(sponser.enabled)
-        { return true ;}
+        { console.log(sponser.enabled)
+          isEnabled = true ;}
 
       });
-      return false;
+      return isEnabled;
     }
     useEffect(() => {
       setIsSponsers(checkForSponsers(sponsers));
-
-      console.log(sponsers);
-    }, [])
+      // console.log(isSponsers);
+      console.log(isSponsers);
+    }, [isSponsers])
     return (
       <div className='sponsers-container mt-4'>
         <h1 className='text-xl font-medium'>{isSponsers ? 'Sponsers' : null}</h1>

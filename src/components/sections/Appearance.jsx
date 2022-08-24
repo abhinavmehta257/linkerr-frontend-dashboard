@@ -44,12 +44,3 @@ function Appearance() {
 }
 
 export default Appearance
-
-
-
-
-employee [
-  {
-    name
-  }
-]

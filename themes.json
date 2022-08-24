@@ -1,0 +1,51 @@
+"appearance": {
+  "bodyStyle": {
+    "backgroundColor": "#e0f6ff",
+    "color": "#1b1e1f"
+  },
+  "cardStyle": {
+    "color": "#1b1e1f",
+    "backgroundColor": "#e0f6ff",
+    "borderColor": "rgba(0, 0, 0, 0.2)",
+    "shadow": "none",
+    "borderRadius": "999px",
+    "borderWidth": "1px"
+  }
+}
+
+//gradiant background
+
+"appearance": {
+    "bodyStyle": {
+      "backgroundColor": "linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%);",
+      "color": "#1b1e1f"
+    },
+    "cardStyle": {
+      "color": "#2a3235",
+      "backgroundColor": "#ffffff",
+      "borderColor": "#ffffff",
+      "shadow": "none",
+      "borderRadius": "10px",
+      "borderWidth": "1px"
+    }
+}
+
+// image background
+
+"appearance": {
+    "bodyStyle": {
+      "backgroundColor": "linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)),url('https://images.unsplash.com/photo-1541963463532-d68292c34b19') center/cover no-repeat",
+      "color": "#fff"
+    },
+    "cardStyle": {
+      "color": "#fff",
+      "backgroundColor": "rgba(0,0,0,.5)",
+      "borderColor": "#ffffff",
+      "shadow": "none",
+      "borderRadius": "10px",
+      "borderWidth": "1px"
+    }
+}
+
+
+{"_id":{"$oid":"62fa0bb7d4cee36c9bd24693"},"userId":"62fa0bb7d4cee36c9bd24692","userName":"animesh","appearance":{"bodyStyle":{"backgroundColor":"#11bc5e","color":"#ffff"},"cardStyle":{"color":"#fff","backgroundColor":"#00bc5e","borderColor":"#fff","shadow":"none","borderRadius":"10px","borderWidth":"2px"}},"profile":{"profileTitle":"Jhon Doe","profileImage":"https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png","profileBio":"I am a web developer and I love to code."},"links":[],"__v":0}

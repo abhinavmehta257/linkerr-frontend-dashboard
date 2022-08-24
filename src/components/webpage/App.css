@@ -1,0 +1,74 @@
+:root{
+    --backgroungColor: red;
+    --color: #fff;
+    --linkCardBackgroundColor: #fff;
+    --linkCardHoverColor: #fff;
+    --linkCardTextColor: #fff;
+    --linkCardBorderRadius: 5px;
+    --linkCardBorderColor: #fff;
+    --linkCardShadow:5px 5px 5px #000000;
+    --linkCardBorderWidth: 1px;
+    --linkCardOnHoverBackgroundColor: #fff;
+    --linkCardOnHoverTextColor: #000;
+  }
+  
+  
+
+
+.web-page {
+    text-align: center;
+    background: var(--backgroungColor);
+    color: var(--color);
+    padding: 30px 10px;
+    height: 100%;
+    overflow-y: scroll;
+  }
+  
+  .profile-image{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin: auto;
+  }
+  .profile-title{
+    font-size: 16px;
+    margin-top: 16px;
+    margin-bottom: 0;
+  }
+  .profile-bio{
+    font-size: 14px;
+    font-weight: 500;
+    margin:0;
+  }
+  
+  .card-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 20px;
+    gap: 16px;
+  }
+  
+  .link-card{
+    background: var(--linkCardBackgroundColor);
+    border: var(--linkCardBorderWidth) solid var(--linkCardBorderColor);
+    border-radius: var(--linkCardBorderRadius);
+    padding: 12px;
+    transition: all 0.2s ease-in-out;
+    box-shadow: var(--linkCardShadow);
+    color: var(--linkCardTextColor) ;
+  }
+  
+  .link-card:hover{
+    transform: scale(1.05);
+  }
+
+  .link-card a{
+    
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 400;
+  }
+
+
+  

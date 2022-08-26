@@ -1,4 +1,4 @@
-import {FETCH_THEMES, FETCH_THEMES_SUCCESS, FETCH_THEMES_FAILURE, UPDATE_LINKS} from './themesTypes';
+import {FETCH_THEMES, FETCH_THEMES_SUCCESS, FETCH_THEMES_FAILURE} from './themesTypes';
 import axios from 'axios';
 import { fetchLinksFromState } from '../links/linksActions';
 import { fetchSponsersFromState } from '../sponser/sponserActions';
@@ -23,19 +23,13 @@ export function fetchThemesFailure(error) {
         payload:error
     };
 }
-export function updateLinks(links) {
-    return {
-        type: UPDATE_LINKS,
-        payload:links
-    };
-}
 
 export const fetchThemesRequest = () => {
     return function(dispatch){
         dispatch(fetchThemes());
-        axios.get(base_URL+'/page',{ withCredentials: true, })
+        axios.get(base_URL+'/themes',{ withCredentials: true, })
             .then(response => {
-                const data = response.data[0];
+                const data = response.data;
                 dispatch(fetchThemesSuccess(data));
             }).catch(error => {
                 dispatch(fetchThemesFailure(error.message));

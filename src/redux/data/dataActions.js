@@ -3,6 +3,7 @@ import axios from 'axios';
 import { fetchLinksFromState } from '../links/linksActions';
 import { fetchSponsersFromState } from '../sponser/sponserActions';
 import { fetchProfileFromState } from '../profile/profileActions';
+import {fetchThemesRequest} from '../themes/themesActions'
 import {useSelector} from 'react-redux';
 import {base_URL} from '../'
 
@@ -40,6 +41,7 @@ export const fetchDataRequest = () => {
                 dispatch(fetchLinksFromState(data.links));
                 dispatch(fetchProfileFromState(data.profile));
                 dispatch(fetchSponsersFromState(data.sponsers));
+                dispatch(fetchThemesRequest());
             }).catch(error => {
                 dispatch(fetchDataFailure(error.message));
             }
@@ -49,6 +51,7 @@ export const fetchDataRequest = () => {
 
 export const updateAppearence = (theme) => {
     return function(dispatch){
+        dispatch(fetchData());
         axios.put(base_URL+'/themes/update',{
             _id : theme._id,
             bodyStyle: theme.appearance.bodyStyle,

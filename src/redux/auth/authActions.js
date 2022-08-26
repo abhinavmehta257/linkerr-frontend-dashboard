@@ -22,9 +22,9 @@ export const  loginRequest = (formData, setError) => {
         axios.post(base_URL+'/auth/login', formData,)
             .then(res => {
                 const token = res.data.token;
-                Cookies.set('token', res.data.token,{path:'', expires:7});
                 dispatch(login(res.data.token));
                 console.log(token);
+                Cookies.set('token', token);
                 Axios.defaults.headers.common['token'] = token;
                 return <Navigate to='/' />
             }).catch(err => {

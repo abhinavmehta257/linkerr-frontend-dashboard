@@ -30,7 +30,6 @@ function LinkCard({link, ind}) {
         let editedLink = {...link, title: event.target.value}
         dispatch(editLink(editedLink));
         dispatch(updateLink(editedLink));
-
     }
     const onLinkBlur = (event) => {
         console.log(event.target.value)

@@ -17,7 +17,7 @@ const themesReducer = (state=initialState,action) => {
             return {
                 ...state,
                 loading: false,
-                themes: action.payload
+                data: action.payload
             }
         case FETCH_THEMES_FAILURE:
             return {

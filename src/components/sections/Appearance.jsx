@@ -10,17 +10,8 @@ import { useEffect } from 'react';
 function Appearance() {
   const isProfileLoading = useSelector(state => state.profile.loading);
   const [themes, setThemes] = React.useState(useSelector(state=> state.themes.data));
-  async function getThemes  (){
-    const {data} = await axios.get(process.env.REACT_APP_API_URL_BASE+'/themes', {withCredentials:true})
-    .catch(err=>console.log(err))
-    console.log(data);
-    setThemes(data);
-  } 
 
   useEffect(()=>{
-    if(themes.length == 0){
-      getThemes()
-    }
   }, [themes])
 
   return (

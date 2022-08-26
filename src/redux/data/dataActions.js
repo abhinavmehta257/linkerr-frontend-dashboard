@@ -1,4 +1,4 @@
-import {FETCH_DATA, FETCH_DATA_SUCCESS, FETCH_DATA_FAILURE, UPDATE_LINKS} from './dataTypes';
+import {FETCH_DATA, FETCH_DATA_SUCCESS, FETCH_DATA_FAILURE, UPDATE_APPEARANCE} from './dataTypes';
 import axios from 'axios';
 import { fetchLinksFromState } from '../links/linksActions';
 import { fetchSponsersFromState } from '../sponser/sponserActions';
@@ -24,10 +24,10 @@ export function fetchDataFailure(error) {
         payload:error
     };
 }
-export function updateLinks(links) {
+export function updateAppearenceInState(appearance) {
     return {
-        type: UPDATE_LINKS,
-        payload:links
+        type: UPDATE_APPEARANCE,
+        payload:appearance
     };
 }
 
@@ -50,18 +50,18 @@ export const fetchDataRequest = () => {
 }
 
 export const updateAppearence = (theme) => {
+    const appearance = {
+        _id : theme._id,
+        bodyStyle: theme.appearance.bodyStyle,
+        cardStyle : theme.appearance.cardStyle
+    }
     return function(dispatch){
-        dispatch(fetchData());
-        axios.put(base_URL+'/themes/update',{
-            _id : theme._id,
-            bodyStyle: theme.appearance.bodyStyle,
-            cardStyle : theme.appearance.cardStyle
-        } ,
+        axios.put(base_URL+'/themes/update',appearance ,
         { 
             withCredentials: true,
             headers:{'Access-Control-Allow-Origin':'localhost:3000'} 
         }).then(response => {
-                dispatch(fetchDataRequest());
+                dispatch(updateAppearenceInState(appearance));
             }).catch(error => {
                 dispatch(fetchDataFailure(error.message));
             }

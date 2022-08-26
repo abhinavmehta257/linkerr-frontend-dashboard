@@ -1,8 +1,16 @@
-import {FETCH_DATA, FETCH_DATA_SUCCESS, FETCH_DATA_FAILURE} from './dataTypes';
+import {FETCH_DATA, FETCH_DATA_SUCCESS, FETCH_DATA_FAILURE, UPDATE_APPEARANCE} from './dataTypes';
 
 const initialState = {
     loading: true,
-    data: {},
+    data: {
+        appearance:{},
+        profile:{},
+        _id:'',
+        userID:'',
+        userName:'',
+        links:[],
+        sponsers:[]
+    },
     error: ''
 }
 
@@ -24,6 +32,14 @@ const dataReducer = (state=initialState,action) => {
                 ...state,
                 loading: false,
                 error: action.payload
+            }
+        case UPDATE_APPEARANCE:
+            return {
+                ...state,
+                data:{
+                    ...state.data,
+                    appearance:action.payload
+                }
             }
         default:
             return state;

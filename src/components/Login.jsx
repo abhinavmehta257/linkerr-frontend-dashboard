@@ -1,19 +1,36 @@
 import React, { useState,useEffect } from 'react'
-import axios from 'axios';
 import { Link, Navigate, NavLink } from 'react-router-dom';
-import { loginRequest } from '../redux';
+import { login } from '../redux';
 import { useDispatch, useSelector } from 'react-redux';
+import axios from 'axios';
+import Cookies from 'js-cookie'
+import {base_URL} from '../redux'
+import Axios from 'axios'
+
 
 function Login() {
 
     const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
-    const [processing, setProcessing] = useState(false);
+    const [isProcessing, setProcessing] = useState(null);
     const [error, setError] = useState(null);
     const dispatch = useDispatch();
-    const handleSubmit = async (e) => {
+    const  loginRequest = async (formData, setError) => {
+           await axios.post(base_URL+'/auth/login', formData,)
+                .then(res => {
+                    const token = res.data.token;
+                    dispatch(login(res.data.token));
+                    console.log(token);
+                    Cookies.set('token', token);
+                    Axios.defaults.headers.common['token'] = token;
+                    return <Navigate to='/' />
+                }).catch(err => {
+                    console.log(err);
+                    setError(err.response.data.error);
+                })
+    }
+    const handleSubmit = async(e) => {
         setError(null);
-        setProcessing(true);
         e.preventDefault()
         const userName = e.target.user_name.value;
         const password = e.target.password.value;
@@ -22,9 +39,12 @@ function Login() {
                 userName: e.target.user_name.value,
                 password: e.target.password.value,
             };
-            
-            dispatch(loginRequest(formData, setError));
+            setProcessing(true);
+            console.log(isProcessing);
+            await loginRequest(formData);
             setProcessing(false);
+            console.log(isProcessing);
+
         }
     }
 
@@ -52,22 +72,13 @@ function Login() {
                     <p className="font-medium text-slate-700 pb-2">Password</p>
                     <input id="password" name="password" type="password" className="w-full py-3 border border-slate-200 rounded-lg px-3 focus:outline-none focus:border-slate-500 hover:shadow" placeholder="Enter your password"/>
                 </label>
-                {/* <div className="flex flex-row justify-between">
-                    <div>
-                        <label for="remember" className="">
-                            <input type="checkbox" id="remember" className="w-4 h-4 border-slate-200 focus:dark:bg-gray-800"/>
-                            Remember me
-                        </label>
-                    </div>
-                    <div>
-                        <a href="#" className="font-medium text-gray-800">Forgot Password?</a>
-                    </div>
-                </div> */}
-                <button disabled={processing} className=" disabled:bg-gray-500  w-full py-3 font-medium text-white dark:bg-gray-800 hover:bg-gray-500 rounded-lg border-gray-500 hover:shadow inline-flex space-x-2 items-center justify-center">
+                <button disabled={isProcessing} className=" disabled:bg-gray-500  w-full py-3 font-medium text-white dark:bg-gray-800 hover:bg-gray-500 rounded-lg border-gray-500 hover:shadow inline-flex space-x-2 items-center justify-center">
                     {
-                        processing ? (
+                        isProcessing ? (
                             <>
-                             Processing...
+                            <svg className="animate-spin h-5 w-5 mr-3 ..." viewBox="0 0 24 24">
+                            </svg>
+                            Processing...
                             </>
                         ) : (
                             <>

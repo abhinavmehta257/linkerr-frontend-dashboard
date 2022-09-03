@@ -7,7 +7,7 @@ import {
 import Links from './components/sections/Links';
 import Appearance from './components/sections/Appearance';
 import Settings from './components/sections/Settings';
-import { useState,useEffect } from 'react';
+import { useState,useEffect, StrictMode } from 'react';
 import {useSelector, useDispatch} from 'react-redux'
 import Register from './components/Register';
 import Dashboard from './components/Dashboard';
@@ -45,16 +45,16 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<PrivateRoutes/>} >
-            <Route path="/" element={<Dashboard/>} >
-              <Route path="" element={<Links />} />
-              <Route path='appearance' element={<Appearance />} />
-              <Route path='sponsers' element={<Sponser />} />
-              <Route path='settings' element={<Settings />} />
+          <Route path="/" element={<PrivateRoutes/> } StrictMode={true}>
+            <Route path="/" element={<Dashboard/>}StrictMode={true} >
+              <Route path="" element={<Links />} StrictMode={true}/>
+              <Route path='appearance' element={<Appearance StrictMode={true}/>} />
+              <Route path='sponsers' element={<Sponser />} StrictMode={true}/>
+              <Route path='settings' element={<Settings />} StrictMode={true}/>
             </Route>
           </Route>
-          <Route path="/register" element={<Register/>} />
-          <Route path="/login" element={<Login/>} />
+          <Route path="/register" element={<Register/>} StrictMode={true}/>
+          <Route path="/login" element={<Login/>} StrictMode={true}/>
           <Route path="*" element={<Error404/>} />
         </Routes>
       </BrowserRouter>

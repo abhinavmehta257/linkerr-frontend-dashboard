@@ -11,25 +11,14 @@ function Priview() {
   },[isDataLoading])
 
   return (
-    // <div className='col-span-5 p-5'>
-    //         <div className=''>
-    //           <div class="smartphone">
-    //             <div class="content">
-    //               {
-    //                 !isDataLoading ? <WebPage /> : <div className='text-center'>Loading...</div>
-    //               }
-    //             </div>
-    //           </div>
-    //         </div>
-    //       </div>
-    
           <main className='col-span-5 p-5'>
           <div class="iphonex">
             <div class="front">
               <div class="screen">
                 <div class="screen__view">
                   {
-                   !isDataLoading ? <WebPage /> : <div className='text-center w-full h-full bg-slate-100 text-2xl text-gray-800 justify justify-center flex flex-col'>Loading...</div>
+                   !isDataLoading ? <WebPage /> : 
+                   <div className='text-center w-full h-full bg-slate-100 text-2xl text-gray-800 justify justify-center flex flex-col'>Loading...</div>
                   }
                 </div>
                 <div class="screen__front">

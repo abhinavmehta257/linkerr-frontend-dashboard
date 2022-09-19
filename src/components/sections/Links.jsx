@@ -4,6 +4,7 @@ import LinkCard from './components/LinkCard'
 import { useSelector, useDispatch } from 'react-redux'
 import { addLink } from '../../redux'
 import {addNewLinkInDb} from '../../redux'
+import Loading from './components/Loading'
 
 
 function Links() {
@@ -35,7 +36,7 @@ function Links() {
         </div>
         <div >
             { 
-                links.map(link=>(<LinkCard key={link.id} link={link} />))
+               links? links.map(link=>(<LinkCard key={link.id} link={link} />)) : <Loading/>
             }
         </div>
         

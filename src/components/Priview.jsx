@@ -2,6 +2,7 @@ import React from 'react'
 import WebPage from './webpage/WebPage';
 import { useDispatch,useSelector } from 'react-redux';
 import { useEffect } from 'react';
+import Loading from './sections/components/Loading';
 
 function Priview() {
   const isDataLoading = useSelector(state => state.data.loading);
@@ -18,7 +19,7 @@ function Priview() {
                 <div class="screen__view">
                   {
                    !isDataLoading ? <WebPage /> : 
-                   <div className='text-center w-full h-full bg-slate-100 text-2xl text-gray-800 justify justify-center flex flex-col'>Loading...</div>
+                   <Loading />
                   }
                 </div>
                 <div class="screen__front">

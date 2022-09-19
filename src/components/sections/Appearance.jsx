@@ -5,6 +5,7 @@ import Profile from './components/Profile';
 import Themes from './components/Themes';
 import axios from 'axios';
 import { useEffect } from 'react';
+import Loading from './components/Loading';
 
 
 function Appearance() {
@@ -27,7 +28,7 @@ function Appearance() {
           </div>
         </div>
       : 
-      <div className='text-center w-full h-full bg-slate-100 text-2xl text-gray-800 justify justify-center flex flex-col'>Loading...</div>
+      <Loading/>
       }
     </div>
     

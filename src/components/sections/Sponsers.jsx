@@ -4,6 +4,7 @@ import SponserCard from './components/SponserCard'
 import { useSelector, useDispatch } from 'react-redux'
 import { addSponser } from '../../redux'
 import {addNewSponserInDb} from '../../redux'
+import Loading from './components/Loading'
 
 
 function Sponser() {
@@ -35,7 +36,7 @@ function Sponser() {
         </div>
         <div >
             { 
-                sponsers.map(sponser=>(<SponserCard key={sponser.id} sponser={sponser} />))
+               sponsers? sponsers.map(sponser=>(<SponserCard key={sponser.id} sponser={sponser} />)) : <Loading/>
             }
         </div>
         

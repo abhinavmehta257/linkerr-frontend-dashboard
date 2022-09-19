@@ -15,7 +15,7 @@ function Login() {
     const [isProcessing, setProcessing] = useState(null);
     const [error, setError] = useState(null);
     const dispatch = useDispatch();
-    const  loginRequest = async (formData, setError) => {
+    const  loginRequest = async (formData) => {
            await axios.post(base_URL+'/auth/login', formData,)
                 .then(res => {
                     const token = res.data.token;

@@ -1,6 +1,7 @@
 import React from 'react'
 import axios from 'axios';
 import { Link, NavLink } from 'react-router-dom';
+import { useEffect } from 'react';
 const  registerUser = async (formData, setError, setRes) => {
     await axios.post(process.env.REACT_APP_API_URL_BASE+'/auth/register', formData)
         .then(res => {
@@ -17,6 +18,7 @@ function Register() {
     const [processing, setProcessing] = React.useState(false);
     const [error, setError] = React.useState(null);
     const [res, setRes] = React.useState(null);
+    const [userName, setUserName] = React.useState('')
     const handleSubmit = async (e) => {
         setError(null);
         e.preventDefault()
@@ -36,6 +38,12 @@ function Register() {
         }
     }
 
+  useEffect(()=>{
+    const urlParams = new URLSearchParams(window.location.search);
+    const userName = urlParams.get('user_name');
+    setUserName(userName);
+  })
+
   return (
     <div className="max-w-lg mx-auto my-10 bg-white p-8 rounded-xl shadow shadow-slate-300">
         <h1 className="text-4xl font-medium">Register</h1>
@@ -51,7 +59,7 @@ function Register() {
             <div className="flex flex-col space-y-5 text-left">
                 <label for="user-name">
                     <p className="font-medium text-slate-700 pb-2">User Name</p>
-                    <input id="user-name" name="user_name" type="text" className="w-full py-3 border border-slate-200 rounded-lg px-3 focus:outline-none focus:border-slate-500 hover:shadow" placeholder="Enter User Name"/>
+                    <input id="user-name" name="user_name" type="text" className="w-full py-3 border border-slate-200 rounded-lg px-3 focus:outline-none focus:border-slate-500 hover:shadow" defaultValue={userName} placeholder="Enter User Name"/>
                 </label>
                 <label for="email">
                     <p className="font-medium text-slate-700 pb-2">Email address</p>

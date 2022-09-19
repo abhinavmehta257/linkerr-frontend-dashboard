@@ -3,7 +3,7 @@ import React from 'react'
 function SponcerCard({sponser}) {
     return (
         <div className='cursor-pointer' >
-            <div className='link-card'>
+            <div className='link-card break-all'>
                 <div >
                     <img src={sponser.ImageUrl} className='rounded' alt="" srcset="" />
                 </div>

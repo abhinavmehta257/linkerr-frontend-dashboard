@@ -5,6 +5,8 @@ import { useSelector, useDispatch } from 'react-redux'
 import { addSponser } from '../../redux'
 import {addNewSponserInDb} from '../../redux'
 import Loading from './components/Loading'
+import Switch from '@mui/material/Switch';
+
 
 
 function Sponser() {
@@ -17,6 +19,7 @@ function Sponser() {
         type:'url',
         enabled: false
     }
+    const label = { inputProps: { 'aria-label': 'Switch demo' } };
 
     const addNewSponser = () => {
         dispatch(addSponser(newSponser));

@@ -4,8 +4,10 @@ import Priview from './Priview'
 import Sidebar from './Sidebar'
 import {fetchDataRequest} from '../redux'
 import {useDispatch, useSelector} from 'react-redux'
+import IsMobilePrompt from './sections/IsMobilePrompt'
 
 function Dashboard() {
+  let isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);;
   const dispatch = useDispatch();
   const isDataLoading = useSelector((state) => state.data.loading);
   const [loading, setLoading] = useState(true);
@@ -14,7 +16,7 @@ function Dashboard() {
     if(!isDataLoading){
       setLoading(false);
     }
-    console.log('test');
+    console.log(isMobile);
   }, [])
   useEffect(() => {
     if(loading){
@@ -23,16 +25,20 @@ function Dashboard() {
   }, [loading])
   return (
     <div className=''>
-        
-        <div className='grid grid-cols-12 gap-3 bg-slate-100'>
-          <div className='col-span-2'>
-            <Sidebar/>
-          </div>
-          <div className='col-span-5 p-5 overflow-y-scroll h-[100vh] scrollbar'>
-              <Outlet />
-          </div>
-          <Priview />
-        </div>
+        {
+          !isMobile?(
+            <div className='grid grid-cols-12 gap-3 bg-slate-100'>
+              <div className='col-span-2'>
+                <Sidebar/>
+              </div>
+              <div className='col-span-5 p-5 overflow-y-scroll h-[100vh] scrollbar'>
+                  <Outlet />
+              </div>
+              <Priview />
+            </div>
+          ):(<IsMobilePrompt/>)
+        }
+
       </div>
   )
 }

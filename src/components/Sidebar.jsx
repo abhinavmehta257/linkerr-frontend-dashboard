@@ -2,7 +2,7 @@ import React from 'react'
 import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom'
 import  {useDispatch} from 'react-redux';
-import {logout} from '../redux'
+import {deleteAuthTokenAndLogout} from '../redux'
 
 function Sidebar() {
 
@@ -17,7 +17,9 @@ function Sidebar() {
 
   return (
     <div className="flex grow flex-col h-screen px-4 py-8 bg-white border-r dark:bg-gray-800 dark:border-gray-600">
-        <h2 className="text-3xl font-semibold text-gray-800 dark:text-white">One Link</h2>
+        <a href="https://theonelink.me/" >
+            <img width={'100px'} className='m-auto' src="logo192.png" alt="" srcset="" />
+        </a>
 
         <div className="relative mt-6"  >
             <span onClick={copy} className="cursor-pointer absolute inset-y-0 left-0 flex items-center pl-3 dark:text-gray-300 dark:bg-slate-500 rounded pr-2 " >
@@ -66,7 +68,7 @@ function Sidebar() {
                     <img className="object-cover mx-2 rounded-full h-9 w-9" src={profile.profileImage} alt="avatar"/>
                     <h4 className="mx-2 font-medium text-gray-800 dark:text-gray-200 hover:underline">{userName}</h4>
                 </div>
-                <button className='text-white bg-rose-600 p-2 pl-4 pr-4 rounded' onClick={()=>{dispatch(logout())}}>
+                <button className='text-white bg-rose-600 p-2 pl-4 pr-4 rounded' onClick={()=>{dispatch(deleteAuthTokenAndLogout())}}>
                     Log Out
                 </button>
             </div>

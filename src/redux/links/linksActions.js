@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ADD_LINK } from "./linksType";
+import { ADD_LINK, UPDATE_LINKS_ORDER } from "./linksType";
 import { DELETE_LINK } from "./linksType";
 import { EDIT_LINK } from "./linksType";
 import { FETCH_LINKS } from "./linksType";
@@ -36,6 +36,13 @@ export function fetchLinksSuccess(links) {
     };
 }
 
+export function updateLinkOrder(links){
+    return {
+        type: UPDATE_LINKS_ORDER,
+        payload: links
+    }
+}
+
 
 export const fetchLinksFromState = (links)=>{
     return function(dispatch){
@@ -70,6 +77,17 @@ export const deleteLinkInDb = (id)=>{
         axios.post(base_URL+'/links/deleteLink', {id:id} ,{ withCredentials: true })
             .then(res => {
                 console.log(res);
+            }
+        );
+    }
+}
+
+export const updateNewLinkOrder = (links)=>{
+    console.log(links);
+    return function(dispatch){
+        axios.post(base_URL+'/links/updateLinkOrder', links ,{ withCredentials: true })
+            .then(res => {
+                dispatch(updateLinkOrder(links))
             }
         );
     }

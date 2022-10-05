@@ -53,15 +53,17 @@ export const updateAppearence = (theme) => {
     const appearance = {
         _id : theme._id,
         bodyStyle: theme.appearance.bodyStyle,
-        cardStyle : theme.appearance.cardStyle
+        cardStyle : theme.appearance.cardStyle,
     }
     return function(dispatch){
+        document.body.style.cursor='wait';
         axios.put(base_URL+'/themes/update',appearance ,
         { 
             withCredentials: true,
             headers:{'Access-Control-Allow-Origin':'localhost:3000'} 
         }).then(response => {
                 dispatch(updateAppearenceInState(appearance));
+                document.body.style.cursor='default';
             }).catch(error => {
                 dispatch(fetchDataFailure(error.message));
             }

@@ -3,6 +3,7 @@ import { DELETE_SPONSER, } from "./sponsersType"
 import { EDIT_SPONSER } from "./sponsersType"
 import { FETCH_SPONSERS } from "./sponsersType"
 import { FETCH_SPONSERS_SUCCESS } from "./sponsersType"
+import {UPDATE_SPONSERS_ORDER} from "./sponsersType";
 
 const initialState = {
     loading: true,
@@ -35,6 +36,11 @@ const sponsersReducer = (state = initialState, action) => {
         case FETCH_SPONSERS_SUCCESS:
             return {
                 loading: false,
+                ...state,
+                data: action.payload
+            }
+        case UPDATE_SPONSERS_ORDER:
+            return {
                 ...state,
                 data: action.payload
             }

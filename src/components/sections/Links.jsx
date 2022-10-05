@@ -4,8 +4,10 @@ import LinkCard from './components/LinkCard'
 import { useSelector, useDispatch } from 'react-redux'
 import { addLink } from '../../redux'
 import {addNewLinkInDb} from '../../redux'
+import { Droppable } from 'react-beautiful-dnd';
 import Loading from './components/Loading'
-
+import { DragDropContext } from 'react-beautiful-dnd';
+import {updateLinkOrder} from '../../redux'
 
 function Links() {
     const dispatch = useDispatch();
@@ -23,6 +25,17 @@ function Links() {
         dispatch(addNewLinkInDb(newLink));
     }
 
+    const updateNewLinkOrder = (props)=>{
+        if(props.destination.index !== props.source.index){
+            const desI = props.destination.index
+            const srcI = props.source.index
+            const newLinkOrder = [...links];
+            newLinkOrder.splice(desI,0,newLinkOrder.splice(srcI,1)[0])
+            console.log(links);
+            dispatch(updateLinkOrder(newLinkOrder))
+        }
+    }
+
     useEffect(() => {
         console.log(links);
     } , [])
@@ -34,12 +47,30 @@ function Links() {
                 Add New Link
             </button>
         </div>
-        <div >
-            { 
-               links? links.map(link=>(<LinkCard key={link.id} link={link} />)) : <Loading/>
-            }
-        </div>
-        
+        {links ?( 
+        <DragDropContext 
+            onDragEnd={(props)=>{
+                updateNewLinkOrder(props)
+            }}
+        >
+            <Droppable droppableId="Links" >
+            {(provided, snapshot) => (
+                <div
+                {...provided.droppableProps}
+                {...provided.placeholder}
+                ref={provided.innerRef}
+                >
+                    { 
+                        links.map((link,ind)=>(
+                            <LinkCard key={link.id} link={link} ind={ind}/>
+                        ))
+                    }
+                </div>
+            )}
+            </Droppable>
+        </DragDropContext>
+        ):<Loading></Loading>
+    }
    </div>
   )
 }

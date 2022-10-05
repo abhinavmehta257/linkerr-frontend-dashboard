@@ -22,7 +22,6 @@ function changeappearance(bodyStyle,cardStyle) {
 
 function App() {
   const webpageConfig = useSelector(state => state.data.data);
-  const sponsers = useSelector(state => state.sponsers.data)
   useEffect(() => {
     console.log(webpageConfig.appearance);
     changeappearance(webpageConfig.appearance.bodyStyle,webpageConfig.appearance.cardStyle);

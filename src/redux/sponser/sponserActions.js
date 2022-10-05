@@ -4,7 +4,8 @@ import { DELETE_SPONSER } from "./sponsersType";
 import { EDIT_SPONSER } from "./sponsersType";
 import { FETCH_SPONSERS } from "./sponsersType";
 import { FETCH_SPONSERS_SUCCESS } from "./sponsersType";
-import {base_URL} from '..';
+import {UPDATE_SPONSERS_ORDER} from "./sponsersType";
+import {base_URL} from '../';
 
 export function addSponser(sponser) {
   return {
@@ -35,7 +36,12 @@ export function fetchSponsersSuccess(sponsers) {
         payload:sponsers
     };
 }
-
+export function updateSponsersOrder(sponsers) {
+    return {
+        type: UPDATE_SPONSERS_ORDER,
+        payload:sponsers
+    };
+}
 
 export const fetchSponsersFromState = (sponsers)=>{
     return function(dispatch){
@@ -54,6 +60,17 @@ export const updateSponser = (sponser)=>{
         );
     }
 }
+export const updateSponsersOrderDB = (sponsers)=>{
+    return function(dispatch){
+        axios.post(base_URL+'/sponsers/updateSponsersOrder', sponsers ,{ withCredentials: true, headers:{'Access-Control-Allow-Origin':'localhost:3000'} })
+            .then(res => {
+                console.log(res);
+                dispatch(updateSponsersOrder(sponsers));
+            }
+        );
+    }
+}
+
 
 export const addNewSponserInDb = (sponser)=>{
     return function(dispatch){

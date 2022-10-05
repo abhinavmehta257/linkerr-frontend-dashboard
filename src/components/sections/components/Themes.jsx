@@ -15,7 +15,7 @@ function Themes({themes}) {
       <h1 className='text-3xl mb-3'>
           Themes
       </h1>
-      <div className='grid grid-cols-3 gap-5'>
+      <div id='themes' className='grid grid-cols-3 gap-5'>
         {themes.map((theme, key) => {
           return (<div className={`{ ${currentThemeId === theme._id ? 'border-4 rounded-xl border-gray-800 border-r pointer-events-none' : 'cursor-pointer'} `} onClick={()=>{dispatch(updateAppearence(theme))}}>
             <ThemeSample theme={theme} key={key} />

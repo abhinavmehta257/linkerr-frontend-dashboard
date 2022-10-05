@@ -2,7 +2,7 @@ import { ADD_LINK, } from "./linksType"
 import { DELETE_LINK, } from "./linksType"
 import { EDIT_LINK } from "./linksType"
 import { FETCH_LINKS } from "./linksType"
-import { FETCH_LINKS_SUCCESS } from "./linksType"
+import { FETCH_LINKS_SUCCESS, UPDATE_LINKS_ORDER } from "./linksType"
 
 const initialState = {
     loading: true,
@@ -35,6 +35,11 @@ const linksReducer = (state = initialState, action) => {
         case FETCH_LINKS_SUCCESS:
             return {
                 loading: false,
+                ...state,
+                data: action.payload
+            }
+        case UPDATE_LINKS_ORDER:
+            return{
                 ...state,
                 data: action.payload
             }

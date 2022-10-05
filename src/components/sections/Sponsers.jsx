@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react'
-import { useState } from 'react'
 import SponserCard from './components/SponserCard'
 import { useSelector, useDispatch } from 'react-redux'
 import { addSponser } from '../../redux'
+import {updateSponsersOrderDB} from '../../redux'
 import {addNewSponserInDb} from '../../redux'
 import Loading from './components/Loading'
-import Switch from '@mui/material/Switch';
+import { DragDropContext } from 'react-beautiful-dnd';
+import { Droppable } from 'react-beautiful-dnd';
 
 
 
@@ -25,6 +26,16 @@ function Sponser() {
         dispatch(addSponser(newSponser));
         dispatch(addNewSponserInDb(newSponser));
     }
+    const updateNewSponsersOrder = (props)=>{
+        if(props.destination.index !== props.source.index){
+            const desI = props.destination.index
+            const srcI = props.source.index
+            const newSponsersOrder = [...sponsers];
+            newSponsersOrder.splice(desI,0,newSponsersOrder.splice(srcI,1)[0])
+            dispatch(updateSponsersOrderDB(newSponsersOrder))
+        }
+    }
+
 
     useEffect(() => {
         console.log(sponsers);
@@ -39,7 +50,27 @@ function Sponser() {
         </div>
         <div >
             { 
-               sponsers? sponsers.map(sponser=>(<SponserCard key={sponser.id} sponser={sponser} />)) : <Loading/>
+               sponsers?(
+                <DragDropContext 
+                    onDragEnd={(props)=>{
+                        updateNewSponsersOrder(props);
+                        console.log(props);
+                    }}
+                >{
+                    <Droppable droppableId="sponcers" >
+                        {(provided, snapshot) => (
+                            <div
+                            {...provided.droppableProps}
+                            {...provided.placeholder}
+                            ref={provided.innerRef}
+                            >{
+                                sponsers.map((sponser,ind)=>(<SponserCard key={sponser.id} sponser={sponser} ind={ind}/>))
+                            }
+                            </div>
+                        )}
+                    </Droppable>
+                }
+                </DragDropContext>) : <Loading/>
             }
         </div>
         

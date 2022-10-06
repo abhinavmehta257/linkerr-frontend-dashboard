@@ -24,7 +24,7 @@ function Sponcers() {
     }, [isSponsers])
     return (
       <div className='sponsers-container mt-4'>
-        {/* <h1 className='text-xl font-medium'>{isSponsers ? 'Sponsers' : null}</h1> */}
+        <h1 className='text-xl font-medium'>{isSponsers ? 'Sponsers' : null}</h1>
         <div className='card-container'>
           <div className="grid grid-cols-2 gap-2">
             {sponsers.map((sponser,ind) =>(

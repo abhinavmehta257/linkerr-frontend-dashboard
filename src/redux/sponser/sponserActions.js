@@ -62,10 +62,12 @@ export const updateSponser = (sponser)=>{
 }
 export const updateSponsersOrderDB = (sponsers)=>{
     return function(dispatch){
+        dispatch(updateSponsersOrder(sponsers));
         axios.post(base_URL+'/sponsers/updateSponsersOrder', sponsers ,{ withCredentials: true, headers:{'Access-Control-Allow-Origin':'localhost:3000'} })
-            .then(res => {
-                console.log(res);
-                dispatch(updateSponsersOrder(sponsers));
+            .catch(err => {
+                console.log(err);
+                alert('Error occured Pleae refresh and try again')
+
             }
         );
     }

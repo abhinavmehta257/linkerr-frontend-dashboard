@@ -8,7 +8,14 @@ import {validateLink} from '../../../helper'
 import {updateSponser} from '../../../redux'
 import {deleteSponserInDb} from '../../../redux'
 import { Draggable } from 'react-beautiful-dnd';
+import Autocomplete from '@mui/material/Autocomplete';
+import TextField from '@mui/material/TextField';
 
+const sponserTagOprtio = [
+    '#collab',
+    '#sponsor',
+    '#recommended'
+]
 
 function SponserCard({sponser, ind}) {
     const [enabled, setEnabled] = useState(sponser.enabled)
@@ -35,9 +42,8 @@ function SponserCard({sponser, ind}) {
         dispatch(updateSponser(editedSponser));
 
     }
-    const ondescriptionBlur = (event) => {
-        console.log(event.target.value);
-        let editedSponser = {...sponser, description: event.target.value}
+    const ondescriptionChange = (value) => {
+        let editedSponser = {...sponser, description: value}
         dispatch(editSponser(editedSponser));
         dispatch(updateSponser(editedSponser));
 
@@ -77,13 +83,14 @@ function SponserCard({sponser, ind}) {
         var myWidget = window.cloudinary.createUploadWidget({
         cloudName: 'dxe8948vp',
         sources: ['local', 'url', 'camera'], 
+        return_delete_token:true,
         cropping: 'server',
         showSkipCropButton: false,
         croppingAspectRatio: 1,
         uploadPreset: process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET}, (error, result) => { 
           if (!error && result && result.event === "success") { 
             console.log('Done! Here is the image info: ', result.info); 
-            let editedSponser = {...sponser, ImageUrl: result.info.secure_url}
+            let editedSponser = {...sponser, ImageUrl: result.info.secure_url, imageAssetId: result.info.asset_id}
             dispatch(editSponser(editedSponser)); 
             dispatch(updateSponser(editedSponser));
             setIsUploading(false)
@@ -92,7 +99,7 @@ function SponserCard({sponser, ind}) {
             setIsUploading(false);
             setError(error.response.data.error.message);
           }
-        }
+        },
       )
       myWidget.open();
     }
@@ -139,7 +146,19 @@ function SponserCard({sponser, ind}) {
                         <input type="url" defaultValue={sponser.url} onKeyUp={checkForEnter} onBlur={onSponserLinkBlur} className={`p-1 pl-2.5 w-full rounded focus:outline-none placeholder:italic placeholder:text-slate-400 bg-gray-200 ${validURL ? '' : 'border-2 border-rose-500'}`} name="url" id="" placeholder='Enter Url' />
                     </div>
                     <div>
-                        <textarea name='description' rows={1} onBlur={ondescriptionBlur} className='p-1 pl-2.5 w-full rounded placeholder:italic placeholder:text-slate-400 focus:outline-none bg-gray-200' placeholder='description' maxLength={80} defaultValue={sponser.description}></textarea>
+                        {/* <textarea name='description' rows={1} onBlur={ondescriptionBlur} className='p-1 pl-2.5 w-full rounded placeholder:italic placeholder:text-slate-400 focus:outline-none bg-gray-200' placeholder='description' maxLength={80} defaultValue={sponser.description}></textarea> */}
+                        <Autocomplete
+                            multiple
+                            freeSolo
+                            limitTags={1}
+                            id="tags"
+                            options={sponserTagOprtio}
+                            getOptionLabel={(option) => option}
+                            renderInput={(params) => (
+                                <TextField {...params} label="Tags" placeholder="Favorites" />
+                            )}
+                            onChange={(event, value) => ondescriptionChange(value)}
+                            />
                     </div>
                     {
                         !validURL ? <div className='text-red-500 text-xs'>Invalid Sponser please make sure url has http/https.</div> : null

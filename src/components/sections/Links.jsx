@@ -7,7 +7,7 @@ import {addNewLinkInDb} from '../../redux'
 import { Droppable } from 'react-beautiful-dnd';
 import Loading from './components/Loading'
 import { DragDropContext } from 'react-beautiful-dnd';
-import {updateLinkOrder} from '../../redux'
+import {updateLinkOrderDB} from '../../redux'
 
 function Links() {
     const dispatch = useDispatch();
@@ -32,7 +32,7 @@ function Links() {
             const newLinkOrder = [...links];
             newLinkOrder.splice(desI,0,newLinkOrder.splice(srcI,1)[0])
             console.log(links);
-            dispatch(updateLinkOrder(newLinkOrder))
+            dispatch(updateLinkOrderDB(newLinkOrder))
         }
     }
 

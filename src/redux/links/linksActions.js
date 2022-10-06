@@ -82,12 +82,14 @@ export const deleteLinkInDb = (id)=>{
     }
 }
 
-export const updateNewLinkOrder = (links)=>{
+export const updateLinkOrderDB = (links)=>{
     console.log(links);
     return function(dispatch){
+        dispatch(updateLinkOrder(links))
         axios.post(base_URL+'/links/updateLinkOrder', links ,{ withCredentials: true })
-            .then(res => {
-                dispatch(updateLinkOrder(links))
+            .catch(err => {
+                console.log(err);
+                alert('Error occured Pleae refresh and try again')
             }
         );
     }

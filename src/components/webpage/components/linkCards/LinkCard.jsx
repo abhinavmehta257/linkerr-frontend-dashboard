@@ -1,12 +1,22 @@
 import React from 'react'
 
 function LinkCard({link}) {
+  const openUrl=()=>{
+    window.open(link.url);
+  }
   return (
     <div className='cursor-pointer' >
-        <div className='link-card'>
-            <p><a target={'_blank'} href={link.url} className='font-medium'>{link.title}</a></p>
+            <a target={'_blank'} onClick={openUrl} className='font-medium pt-5'>
+                <div className='link-card break-all'>
+                  { link.ImageUrl ? (
+                    <div className='h-[200px]' style={{background:`url(${link.ImageUrl}) center/cover no-repeat`}}>
+                    </div>
+                  ):''
+                  }
+                    <p>{link.title}</p>
+                </div>
+            </a>
         </div>
-    </div>
   )
 }
 

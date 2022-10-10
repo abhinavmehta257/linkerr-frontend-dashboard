@@ -11,9 +11,9 @@ function Links() {
   }, [])
   return (
     <div className='links-container'>
-      <div   className='card-container'>
+      <div   className='card-container grid grid-cols-2'>
         {links.map((link,ind) =>(
-          link.enabled && link.title !== '' && link.url !== '' ? 
+          link.enabled && (link.title !== '' || link.ImageUrl) !== '' ? 
           linkCardSelector(link, ind): null
         ))}
       </div>

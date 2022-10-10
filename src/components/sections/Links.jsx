@@ -17,6 +17,9 @@ function Links() {
         title: '',
         url: '',
         type:'url',
+        ImageUrl:'',
+        imageAssetId:'',
+        tags:[],
         enabled: false
     }
 

@@ -6,7 +6,7 @@ import YoutubeLinkCard from "../components/linkCards/YoutubeLinkCard"
 function getLinkType(link) {
   if (link.includes("spotify")) {
     return "spotify"
-  }else if(link.includes("youtube") || link.includes("youtu.be")) {
+  }else if((link.includes("youtube") || link.includes("youtu.be")) && !link.includes('channel') ) {
     return "youtube"
   }else if(link.includes('music.apple.com')){
     return "apple"

@@ -1,19 +1,29 @@
 import React from 'react'
 
 function LinkCard({link}) {
+  const isTags = link.tags.length > 0 ? true : false;
   const openUrl=()=>{
     window.open(link.url);
   }
   return (
-    <div className='cursor-pointer' >
-            <a target={'_blank'} onClick={openUrl} className='font-medium pt-5'>
+    <div className={link.isGrid ? 'col-span-1 cursor-pointer' : 'col-span-2 cursor-pointer'} >
+            <a target={'_blank'} onClick={openUrl} className='font-normal '>
                 <div className='link-card break-all'>
+                  <p className={`${link.ImageUrl ? '':' font-normal'} text-sm`}>{link.title}</p>
                   { link.ImageUrl ? (
-                    <div className='h-[200px]' style={{background:`url(${link.ImageUrl}) center/cover no-repeat`}}>
+                    <div>
+                      <img className='pt-2 pb-2' src = {link.ImageUrl}>
+                      </img>
                     </div>
                   ):''
                   }
-                    <p>{link.title}</p>
+                    <div className='text-start break-words text-xs'>
+                      {
+                        isTags ? link.tags.map((tag)=>(
+                          <span>#{tag} </span>
+                        )) : ''
+                      }
+                    </div>                
                 </div>
             </a>
         </div>

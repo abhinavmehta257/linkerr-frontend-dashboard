@@ -12,7 +12,7 @@ function YoutubeLinkCard({link}) {
     setCollapsed(!collapsed);
   }
   return (
-      <div className='cursor-pointer transition-all ease-in-out' >
+      <div className={link.isGrid ? 'col-span-1 cursor-pointer' : 'col-span-2 cursor-pointer'} >
         <div className='link-card' onClick={toggleCollapse}>
           {link.title}
           <iframe 

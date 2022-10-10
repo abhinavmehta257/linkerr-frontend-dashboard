@@ -12,9 +12,9 @@ import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 
 const sponserTagOprtio = [
-    '#collab',
-    '#sponsor',
-    '#recommended'
+    'collab',
+    'sponsor',
+    'recommended'
 ]
 
 function SponserCard({sponser, ind}) {
@@ -30,7 +30,7 @@ function SponserCard({sponser, ind}) {
         setEnabled(event.target.checked)
         let editedSponser = {...sponser, enabled: event.target.checked}
         dispatch(editSponser(editedSponser));
-        if(editedSponser.url !=='' || editedSponser.title !=='' ||editedSponser.ImageUrl !==''){
+        if(editedSponser.title !=='' ||editedSponser.ImageUrl !==''){
             dispatch(updateSponser(editedSponser));
         }
     }
@@ -51,7 +51,7 @@ function SponserCard({sponser, ind}) {
     const onSponserLinkBlur = (event) => {
         console.log(event.target.value)
         if(event.target.value ==='' || validateLink(event.target.value)){
-            if(!event.target.value.includes('http://') && !event.target.value.includes('https://')){
+            if(!event.target.value.includes('http://') && !event.target.value.includes('https://') && event.target.value !=='' ){
                 event.target.value = 'http://' + event.target.value
             }
             var editedSponser = {...sponser, url: event.target.value}
@@ -70,6 +70,11 @@ function SponserCard({sponser, ind}) {
     const deleteSponserfromState = () => {
         dispatch(deleteSponser(sponser.id));
         dispatch(deleteSponserInDb(sponser.id));
+    }
+    const deleteImage = () => {
+        let editedSponser = {...sponser, imageAssetId: '', ImageUrl:''}
+        dispatch(editSponser(editedSponser));
+        dispatch(updateSponser(editedSponser));
     }
 
     const checkForEnter = (event) => {
@@ -127,16 +132,21 @@ function SponserCard({sponser, ind}) {
 
             </div>
             <div className='grid grid-cols-6 gap-1 p-3 grow'>
-                    <div className='col-span-1'>
-                            <div  className="cursor-pointer text-center h-full">
-                                <div onClick={openWidget} disabled={isUploading} className='h-full w-full rounded-xl' style={{background:`url(${sponser.ImageUrl || "https://res.cloudinary.com/dxe8948vp/image/upload/v1661105259/linkerr/weebly_sidebar_basic_image_nxow9g.png"}) center/cover no-repeat`}} alt='sponser'>
-                                    <div className='w-full rounded-xl' style={{background: 'linear-gradient(180deg, rgba(254,254,254,0.5), transparent)'}}>
-                                        <svg style={{padding:'6px'}} fill='#1f2937' width={'30px'} height={'30px'} color="palette.slate4" font-style="italic" viewBox="0 0 12 12" enable-background="new 0 0 24 24" class="sc-hoXqvr hGXGXO"><path d="M2.5,6.67188,8.46477.70711a1,1,0,0,1,1.41421,0L11.29289,2.121a1,1,0,0,1,0,1.41421L5.32813,9.5ZM4.32813,10.5,0,12,1.5,7.67188Z"></path></svg>
-                                    </div>
+            <div  className=" text-center h-full">
+                                <div  className='h-full w-full rounded-xl bg-white' style={{background:`url(${sponser.ImageUrl}) center/cover no-repeat`}} alt='sponser'>
+                                    {
+                                        sponser.ImageUrl ? (
+                                            <div className='w-full cursor-pointer rounded-xl' onClick={deleteImage} style={{background: 'linear-gradient(180deg, rgba(254,254,254,0.5), transparent)'}}>
+                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M15.59 7L12 10.59L8.41 7L7 8.41L10.59 12L7 15.59L8.41 17L12 13.41L15.59 17L17 15.59L13.41 12L17 8.41L15.59 7Z" fill="black"/> </svg>
+                                            </div>
+                                        ):""
+                                    }
+                                    {sponser.ImageUrl ? '' : (<div onClick={openWidget} disabled={isUploading} className='p-3 text-sm cursor-pointer flex-col flex items-center h-full w-full bg-white rounded-xl'>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width={'30px'} viewBox="0 0 24 24"><path d="M19,13a1,1,0,0,0-1,1v.38L16.52,12.9a2.79,2.79,0,0,0-3.93,0l-.7.7L9.41,11.12a2.85,2.85,0,0,0-3.93,0L4,12.6V7A1,1,0,0,1,5,6h7a1,1,0,0,0,0-2H5A3,3,0,0,0,2,7V19a3,3,0,0,0,3,3H17a3,3,0,0,0,3-3V14A1,1,0,0,0,19,13ZM5,20a1,1,0,0,1-1-1V15.43l2.9-2.9a.79.79,0,0,1,1.09,0l3.17,3.17,0,0L15.46,20Zm13-1a.89.89,0,0,1-.18.53L13.31,15l.7-.7a.77.77,0,0,1,1.1,0L18,17.21ZM22.71,4.29l-3-3a1,1,0,0,0-.33-.21,1,1,0,0,0-.76,0,1,1,0,0,0-.33.21l-3,3a1,1,0,0,0,1.42,1.42L18,4.41V10a1,1,0,0,0,2,0V4.41l1.29,1.3a1,1,0,0,0,1.42,0A1,1,0,0,0,22.71,4.29Z"/></svg>
+                                    Image
+                                    </div>)}
                                 </div>
-                                {/* <button  className={`${isUploading ? 'dark:bg-slate-600' :'dark:bg-slate-800' }`+' text-white mt-2 p-1 pl-4 pr-4 rounded'}>{isUploading ?'opening widget' : 'Upload Image'}</button> */}
                             </div>
-                    </div>
                 <div className=' col-span-4 grid grid-row-4 gap-1'>
                     
                     <div className="">
@@ -153,7 +163,7 @@ function SponserCard({sponser, ind}) {
                             limitTags={1}
                             id="tags"
                             options={sponserTagOprtio}
-                            getOptionLabel={(option) => option}
+                            getOptionLabel={(option) => ('#'+option)}
                             renderInput={(params) => (
                                 <TextField {...params} label="Tags" placeholder="Favorites" />
                             )}
